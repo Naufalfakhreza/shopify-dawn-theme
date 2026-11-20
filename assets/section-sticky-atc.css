@@ -1,0 +1,94 @@
+.sticky-atc {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 40;
+  background-color: var(--sticky-bg, #ffffff);
+  color: var(--sticky-text, #121212);
+  border-top: 1px solid rgba(18, 18, 18, 0.12);
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.08);
+  padding: 1rem 0 calc(1rem + env(safe-area-inset-bottom, 0px));
+  transform: translateY(100%);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.sticky-atc.is-visible {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.sticky-atc__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.2rem;
+}
+
+.sticky-atc__product {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.sticky-atc__thumb {
+  width: 44px;
+  height: 44px;
+  object-fit: cover;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.sticky-atc__info {
+  min-width: 0;
+}
+
+.sticky-atc__title {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 600;
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sticky-atc__price {
+  margin: 0.2rem 0 0;
+  font-size: 1.3rem;
+  opacity: 0.85;
+}
+
+.sticky-atc__button {
+  flex-shrink: 0;
+  background-color: var(--sticky-btn-bg, #121212);
+  color: var(--sticky-btn-text, #ffffff);
+  border: none;
+  border-radius: 6px;
+  padding: 1.1rem 1.8rem;
+  font-size: 1.3rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: opacity 0.2s ease;
+}
+
+.sticky-atc__button:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.sticky-atc__button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media screen and (min-width: 750px) {
+  .sticky-atc:not(.sticky-atc--desktop-visible) {
+    display: none;
+  }
+}
