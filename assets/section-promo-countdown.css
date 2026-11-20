@@ -1,0 +1,102 @@
+.promo-countdown {
+  background-color: var(--promo-bg, #111827);
+  color: var(--promo-text, #ffffff);
+}
+
+.promo-countdown__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  text-align: center;
+}
+
+.promo-countdown__eyebrow {
+  display: inline-block;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.85;
+  margin-bottom: 0.5rem;
+}
+
+.promo-countdown__heading {
+  color: inherit;
+  margin: 0 0 0.5rem;
+  font-size: clamp(2rem, 3vw, 2.8rem);
+  line-height: 1.2;
+}
+
+.promo-countdown__subtext {
+  margin: 0;
+  opacity: 0.9;
+  font-size: 1.4rem;
+}
+
+.promo-countdown__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(64px, 1fr));
+  gap: 1rem;
+}
+
+.promo-countdown__unit {
+  background-color: var(--promo-accent, #1f2937);
+  border-radius: 8px;
+  padding: 1rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 68px;
+}
+
+.promo-countdown__value {
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+
+.promo-countdown__label {
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.75;
+  margin-top: 0.25rem;
+}
+
+.promo-countdown__expired {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.promo-countdown__button {
+  display: inline-block;
+  background-color: var(--promo-btn-bg, #f59e0b);
+  color: var(--promo-btn-text, #111827);
+  padding: 1.2rem 2.4rem;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 1.4rem;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: opacity 0.2s ease, transform 0.15s ease;
+}
+
+.promo-countdown__button:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+@media screen and (min-width: 990px) {
+  .promo-countdown__container {
+    flex-direction: row;
+    text-align: left;
+  }
+
+  .promo-countdown__content {
+    flex: 1 1 35%;
+  }
+}

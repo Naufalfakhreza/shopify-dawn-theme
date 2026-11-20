@@ -1,0 +1,219 @@
+{{ 'section-promo-countdown.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'promo-countdown.js' | asset_url }}" defer="defer"></script>
+
+{%- style -%}
+  #PromoCountdown-{{ section.id }} {
+    --promo-bg: {{ section.settings.bg_color }};
+    --promo-text: {{ section.settings.text_color }};
+    --promo-accent: {{ section.settings.accent_color }};
+    --promo-btn-bg: {{ section.settings.button_bg_color }};
+    --promo-btn-text: {{ section.settings.button_text_color }};
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    #PromoCountdown-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<section
+  id="PromoCountdown-{{ section.id }}"
+  class="promo-countdown"
+  aria-label="{{ section.settings.heading | escape }}"
+>
+  <div class="page-width promo-countdown__container">
+    <div class="promo-countdown__content">
+      {%- if section.settings.eyebrow != blank -%}
+        <span class="promo-countdown__eyebrow">{{ section.settings.eyebrow | escape }}</span>
+      {%- endif -%}
+
+      {%- if section.settings.heading != blank -%}
+        <h2 class="promo-countdown__heading">{{ section.settings.heading | escape }}</h2>
+      {%- endif -%}
+
+      {%- if section.settings.subtext != blank -%}
+        <p class="promo-countdown__subtext">{{ section.settings.subtext | escape }}</p>
+      {%- endif -%}
+    </div>
+
+    <promo-countdown
+      class="promo-countdown__timer"
+      data-end-date="{{ section.settings.end_date | escape }}"
+      data-hide-on-expire="{{ section.settings.hide_on_expire }}"
+      data-expired-message="{{ section.settings.expired_message | escape }}"
+      role="timer"
+      aria-live="off"
+    >
+      <div class="promo-countdown__grid" data-timer-grid>
+        <div class="promo-countdown__unit">
+          <span class="promo-countdown__value" data-days>00</span>
+          <span class="promo-countdown__label">Days</span>
+        </div>
+        <div class="promo-countdown__unit">
+          <span class="promo-countdown__value" data-hours>00</span>
+          <span class="promo-countdown__label">Hours</span>
+        </div>
+        <div class="promo-countdown__unit">
+          <span class="promo-countdown__value" data-minutes>00</span>
+          <span class="promo-countdown__label">Mins</span>
+        </div>
+        <div class="promo-countdown__unit">
+          <span class="promo-countdown__value" data-seconds>00</span>
+          <span class="promo-countdown__label">Secs</span>
+        </div>
+      </div>
+
+      <p class="promo-countdown__expired" data-expired-text hidden>
+        {{ section.settings.expired_message | escape }}
+      </p>
+    </promo-countdown>
+
+    {%- if section.settings.button_label != blank -%}
+      <div class="promo-countdown__actions">
+        <a
+          href="{{ section.settings.button_link | default: '#' }}"
+          class="promo-countdown__button"
+          {% if section.settings.button_link == blank %}aria-disabled="true"{% endif %}
+        >
+          {{ section.settings.button_label | escape }}
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Promo Countdown Banner",
+  "tag": "div",
+  "class": "section-promo-countdown",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow badge",
+      "default": "Limited Time Offer"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Flash Sale: 25% Off Storewide"
+    },
+    {
+      "type": "text",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "Use code SAVE25 at checkout before the timer runs out."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Shop the Sale"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Countdown Settings"
+    },
+    {
+      "type": "text",
+      "id": "end_date",
+      "label": "End date & time (ISO format)",
+      "default": "2026-12-31T23:59:59",
+      "info": "Format: YYYY-MM-DDTHH:MM:SS (e.g. 2026-12-31T23:59:59)"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_expire",
+      "label": "Hide entire banner when timer expires",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "expired_message",
+      "label": "Expired message",
+      "default": "This promotion has ended."
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background",
+      "default": "#111827"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Timer box background",
+      "default": "#1F2937"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button background",
+      "default": "#F59E0B"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text",
+      "default": "#111827"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 16,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 16,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 36
+    }
+  ],
+  "presets": [
+    {
+      "name": "Promo Countdown Banner"
+    }
+  ]
+}
+{% endschema %}
